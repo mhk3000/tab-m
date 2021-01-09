@@ -13,6 +13,7 @@ Vue.use(Vuetify)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  vuetify: new Vuetify(),
   router,
   components: { App },
   template: '<App/>'
