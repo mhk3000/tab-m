@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <v-app>
-      <page-header />
       <main>
-        <v-container fluid>
+        <page-header />
+        <v-container>
           <router-view></router-view>
         </v-container>
       </main>
@@ -34,9 +34,6 @@ export default {
 
 .input-group --text-field input {
   border-bottom: 1px solid black
-}
-.toolbar__title {
-  color: white;
 }
 
 </style>
