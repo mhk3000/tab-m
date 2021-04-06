@@ -1,9 +1,9 @@
 <template>
-  <panel title="Bookmarks">
+  <panel title="Recently Viewed Songs">
     <v-data-table
       :headers="headers"
       :options="options"
-      :items="bookmarks"/>
+      :items="histories"/>
       <template slot="items" slot-scope="props">
         <td class="text-xs-right">
           {{props.item.title}}
@@ -19,7 +19,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import BookmarksService from '@/services/BookmarksService'
+import SongHistoryService from '@/services/SongHistoryService'
 import SongsService from '@/services/SongsService'
 
 export default {
@@ -33,13 +33,17 @@ export default {
         {
           text: 'Artist',
           value: 'artist'
+        },
+        {
+          text: 'Viewed at',
+          value: 'createdAt'
         }
       ],
       options: {
-         // sortBy: 'createdAt'
+        // sortBy: 'date',
         // descending: true
       },
-      bookmarks: []
+      histories: []
     }
   },
   computed: {
@@ -48,25 +52,25 @@ export default {
     ])
   },
   async mounted () {
-    let bookmarkArr = []
+    let historyArr = []
     let jsonObj = null;
     if (this.isUserLoggedIn) {
-      // bookmarkArr = await BookmarksService.index({
+      // historyArr = await SongHistoryService.index({
       //   userId: (JSON.parse(localStorage.getItem('user'))).id
       // })
-      bookmarkArr = await BookmarksService.index()
-        
-      console.log('id of first object of bookmarkArr: ', bookmarkArr.data[0].id)
-      for (let i = 0; i < bookmarkArr.data.length; i++) {
-        let song = (await SongsService.show(bookmarkArr.data[i].SongId)).data
+      historyArr = await SongHistoryService.index()
+      console.log('id of first object of historyArr: ', historyArr.data[0].id)
+      for (let i = 0; i < historyArr.data.length; i++) {
+        let song = (await SongsService.show(historyArr.data[i].SongId)).data
         console.log('Song queried: ', song)
         jsonObj = {
           "title" : song.title,
-          "artist": song.artist
+          "artist": song.artist,
+          "createdAt": historyArr.data[i].createdAt
         }
-        this.bookmarks.push(jsonObj)
+        this.histories.push(jsonObj)
       }
-      console.log('SongsBookmarks - mounted bookmarks Arr: ', this.bookmarks)
+      console.log('SongsHistory - mounted historys Arr: ', this.histories)
     }
   }
 }

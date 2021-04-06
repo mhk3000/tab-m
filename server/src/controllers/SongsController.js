@@ -38,7 +38,10 @@ module.exports = {
   },
   async show (req, res) {
     try{
+    //  console.log('SongController passed SongID: ', req.params.songId)
       const song = await Song.findByPk(req.params.songId)
+    //  console.log('SongController returning: ', song)
+
       res.send(song)
       } catch (err) {
           console.log(err)
@@ -49,9 +52,9 @@ module.exports = {
   },
   async post (req, res) {
     try{
-      console.log('creating a song', req.body)
+   //   console.log('creating a song', req.body)
       const song = await Song.create(req.body)
-      console.log('after mysql:', song)
+   //   console.log('after mysql:', song)
       res.send(song)
       } catch (err) {
         console.log('what error')

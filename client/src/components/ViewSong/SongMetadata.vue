@@ -75,11 +75,11 @@ export default {
     console.log('userId: ', (JSON.parse(localStorage.getItem('user'))).id)
     console.log('isBookmarked: ', this.isBookmarked)
     this.bookmark = await BookmarksService.index({
-      // songId: this.$store.state.route.params.songId,
-      userId: (JSON.parse(localStorage.getItem('user'))).id
+      songId: this.$store.state.route.params.songId,
+      //userId: (JSON.parse(localStorage.getItem('user'))).id
     })
     console.log('Returning bookmark: ', this.bookmark.data.length)
-    for (let i = 0; i <= this.bookmark.data.length; i++) {
+    for (let i = 0; i < this.bookmark.data.length; i++) {
       if (this.bookmark.data[i].SongId != this.$store.state.route.params.songId) {
         this.isBookmarked = false
       } else {
@@ -87,7 +87,6 @@ export default {
         break
       }
     }
-    console.log('isBookmarked: ', this.isBookmarked)
   },
   methods: {
     navigateTo (route) {
@@ -100,8 +99,7 @@ export default {
         console.log('userId', (JSON.parse(localStorage.getItem('user'))).id)
         console.log('isBookmarked: ', this.isBookmarked)
         BookmarksService.post({
-          songId: this.$store.state.route.params.songId,
-          userId: (JSON.parse(localStorage.getItem('user'))).id
+          songId: this.$store.state.route.params.songId
         })
         this.isBookmarked = true
       } catch (err) {
