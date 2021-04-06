@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'node'"
+    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'node'",
+    "seed": "node seed/index.js"
   },
   "keywords": [],
   "author": "",

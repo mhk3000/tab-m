@@ -7,10 +7,9 @@ module.exports = {
       let songs = null
       const search = req.query.search
       if(search){
-        console.log('Going here111111')
         songs = await Song.findAll({
           where: {
-        [Op.or]: [
+            [Op.or]: [
               'title', 'artist', 'genre', 'album'
             ].map(key => ({
               [key]: {
@@ -23,14 +22,11 @@ module.exports = {
           console.log(songs)
         }
       } else {
-        console.log('Going here222222')
         songs = await Song.findAll({
           limit: 10
         })
-        console.log("Inside loop:", JSON.stringify(songs, null, 2)); 
       }
-      console.log('Just outside loop')
-      console.log("All users:", JSON.stringify(songs, null, 2)); 
+
       res.send(songs)
 
     } catch (err) {
@@ -43,7 +39,6 @@ module.exports = {
   async show (req, res) {
     try{
       const song = await Song.findByPk(req.params.songId)
-      console.log('testing')
       res.send(song)
       } catch (err) {
           console.log(err)

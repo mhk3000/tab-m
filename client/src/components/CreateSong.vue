@@ -97,7 +97,6 @@ export default {
       try {
         console.log('create title:', this.song.title)
         await SongsService.post(this.song)
-
         this.$router.push({
           name: 'songs'
         })
